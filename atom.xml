@@ -5,9 +5,9 @@
   <subtitle>才高粑斗，学负五车</subtitle>
   <link href="/atom.xml" rel="self"/>
   
-  <link href="http://www.gofunink.top/"/>
+  <link href="http://www.gofunink.com/"/>
   <updated>2017-11-21T01:42:59.745Z</updated>
-  <id>http://www.gofunink.top/</id>
+  <id>http://www.gofunink.com/</id>
   
   <author>
     <name>gofunink</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>用MackDown语法写hexo博客</title>
-    <link href="http://www.gofunink.top/2017/11/10/%E7%94%A8MackDown%E8%AF%AD%E6%B3%95%E5%86%99hexo%E5%8D%9A%E5%AE%A2/"/>
-    <id>http://www.gofunink.top/2017/11/10/用MackDown语法写hexo博客/</id>
+    <link href="http://www.gofunink.com/2017/11/10/%E7%94%A8MackDown%E8%AF%AD%E6%B3%95%E5%86%99hexo%E5%8D%9A%E5%AE%A2/"/>
+    <id>http://www.gofunink.com/2017/11/10/用MackDown语法写hexo博客/</id>
     <published>2017-11-10T08:10:58.000Z</published>
     <updated>2017-11-21T01:42:59.745Z</updated>
     
@@ -35,14 +35,14 @@ background: #fff;padding: 25px;m
     
     </summary>
     
-      <category term="MackDown教程" scheme="http://www.gofunink.top/categories/MackDown%E6%95%99%E7%A8%8B/"/>
+      <category term="MackDown教程" scheme="http://www.gofunink.com/categories/MackDown%E6%95%99%E7%A8%8B/"/>
     
-      <category term="hexo" scheme="http://www.gofunink.top/categories/MackDown%E6%95%99%E7%A8%8B/hexo/"/>
+      <category term="hexo" scheme="http://www.gofunink.com/categories/MackDown%E6%95%99%E7%A8%8B/hexo/"/>
     
     
-      <category term="MarkDown" scheme="http://www.gofunink.top/tags/MarkDown/"/>
+      <category term="MarkDown" scheme="http://www.gofunink.com/tags/MarkDown/"/>
     
-      <category term="Hexo" scheme="http://www.gofunink.top/tags/Hexo/"/>
+      <category term="Hexo" scheme="http://www.gofunink.com/tags/Hexo/"/>
     
   </entry>
   
