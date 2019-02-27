@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>gofun&#39;s blog</title>
-  <icon>https://www.gravatar.com/avatar/6df7062e78c2509b78c68085266695c8</icon>
+  <icon>https://www.gravatar.com/avatar/dbcc855f3e28cacfe527c9115d217c92</icon>
   <subtitle>才高粑斗，学负五车</subtitle>
   <link href="/atom.xml" rel="self"/>
   
@@ -11,7 +11,7 @@
   
   <author>
     <name>gofunink</name>
-    <email>gofunink711823@163.com</email>
+    <email>gofun@189.cn</email>
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
