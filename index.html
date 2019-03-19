@@ -439,15 +439,14 @@
           
             
               <span class="post-comments-count">
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-comment-o"></i>
-              </span>
-              
-                <a href="/2019/03/08/Mysql数据导出到Hbase/#SOHUCS" itemprop="discussionUrl">
-                  <span id="url::https://www.gofunink.com/2019/03/08/Mysql数据导出到Hbase/" class="cy_cmt_count" data-xid="2019/03/08/Mysql数据导出到Hbase/" itemprop="commentsCount"></span>
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/03/08/Mysql数据导出到Hbase/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/03/08/Mysql数据导出到Hbase/" itemprop="commentCount"></span>
                 </a>
-              
+              </span>
             
           
 
@@ -491,7 +490,7 @@
 
           
 
-        </span></div>
+        </div>
       </header>
     
 
@@ -645,15 +644,14 @@
           
             
               <span class="post-comments-count">
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-comment-o"></i>
-              </span>
-              
-                <a href="/2019/03/07/hive的优化总结/#SOHUCS" itemprop="discussionUrl">
-                  <span id="url::https://www.gofunink.com/2019/03/07/hive的优化总结/" class="cy_cmt_count" data-xid="2019/03/07/hive的优化总结/" itemprop="commentsCount"></span>
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/03/07/hive的优化总结/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/03/07/hive的优化总结/" itemprop="commentCount"></span>
                 </a>
-              
+              </span>
             
           
 
@@ -697,7 +695,7 @@
 
           
 
-        </span></div>
+        </div>
       </header>
     
 
@@ -851,15 +849,14 @@
           
             
               <span class="post-comments-count">
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-comment-o"></i>
-              </span>
-              
-                <a href="/2017/11/10/用MackDown语法写hexo博客/#SOHUCS" itemprop="discussionUrl">
-                  <span id="url::https://www.gofunink.com/2017/11/10/用MackDown语法写hexo博客/" class="cy_cmt_count" data-xid="2017/11/10/用MackDown语法写hexo博客/" itemprop="commentsCount"></span>
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/11/10/用MackDown语法写hexo博客/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2017/11/10/用MackDown语法写hexo博客/" itemprop="commentCount"></span>
                 </a>
-              
+              </span>
             
           
 
@@ -903,7 +900,7 @@
 
           
 
-        </span></div>
+        </div>
       </header>
     
 
@@ -1337,10 +1334,6 @@
 
 
 
-  
-    <script id="cy_cmt_num" src="https://changyan.sohu.com/upload/plugins/plugins.list.count.js?clientId=cytjaaWha"></script>
-  
-
 
 
 
@@ -1348,6 +1341,26 @@
 
 <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
 <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'xR4SxCoPRRD4ButtTy5rodcJ-gzGzoHsz',
+        appKey: 'wBcdK5XkFl6D6CM5RGLACAzt',
+        placeholder: 'ヾﾉ≧∀≦)o来啊，快活啊!',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
 
 
 
