@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Linux定时任务使用]]></title>
+    <url>%2F2019%2F03%2F20%2FLinux%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E4%BD%BF%E7%94%A8%2F</url>
+    <content type="text"><![CDATA[1234567.---------------- minute (0 - 59) | .------------- hour (0 - 23)| | .---------- day of month (1 - 31)| | | .------- month (1 - 12) OR jan,feb,mar,apr ... | | | | .---- day of week (0 - 6) (Sunday=0 or 7) OR sun,mon,tue,wed,thu,fri,sat | | | | |* * * * * command to be executed 1234567minute：代表一小时内的第几分,范围 0-59。hour：代表一天中的第几小时,范围 0-23。mday：代表一个月中的第几天,范围 1-31。month：代表一年中第几个月,范围 1-12。wday：代表星期几,范围 0-7 (0及7都是星期天)。who：要使用什么身份执行该指令,当您使用 crontab -e 时,不必加此字段。command：所要执行的指令。 一般格式1* * * * * who(用户) command(命令) 下面介绍创建定时任务的2种方法： 方法一： 123crontab -e 其中 root代表用户 可不写* * * * * root /xx/xx/xx/xxx.sh 方法二： 1234567在/etc/cron.d/目录下创建 testCrontab 的文件touch testCrontab文件中编辑如下,其中 root代表用户 是要写的* * * * * root /xx/xx/xx/xxx.sh 下面列举一些例子12345678910111213141516171819202122232425262728293031323334353637383940414243# 每天早上6点 0 6 * * * echo &quot;Good morning.&quot; &gt;&gt; /tmp/test.txt //注意单纯echo,从屏幕上看不到任何输出,因为cron把任何输出都email到root的信箱了。# 每两个小时 0 */2 * * * echo &quot;Have a break now.&quot; &gt;&gt; /tmp/test.txt # 晚上11点到早上8点之间每两个小时和早上八点 0 23-7/2,8 * * * echo &quot;Have a good dream&quot; &gt;&gt; /tmp/test.txt# 每个月的4号和每个礼拜的礼拜一到礼拜三的早上11点 0 11 4 * 1-3 command line# 1月1日早上4点 0 4 1 1 * command line SHELL=/bin/bash PATH=/sbin:/bin:/usr/sbin:/usr/bin MAILTO=root //如果出现错误,或者有数据输出,数据作为邮件发给这个帐号 HOME=/ # 每小时（第一分钟）执行/etc/cron.hourly内的脚本01 * * * * root run-parts /etc/cron.hourly# 每天（凌晨4：02）执行/etc/cron.daily内的脚本02 4 * * * root run-parts /etc/cron.daily # 每星期（周日凌晨4：22）执行/etc/cron.weekly内的脚本22 4 * * 0 root run-parts /etc/cron.weekly # 每月（1号凌晨4：42）去执行/etc/cron.monthly内的脚本 42 4 1 * * root run-parts /etc/cron.monthly # 注意: &quot;run-parts&quot;这个参数了,如果去掉这个参数的话,后面就可以写要运行的某个脚本名,而不是文件夹名。 # 每天的下午4点、5点、6点的5 min、15 min、25 min、35 min、45 min、55 min时执行命令。 5,15,25,35,45,55 16,17,18 * * * command line# 每周一,三,五的下午3：00系统进入维护状态,重新启动系统。00 15 * * 1,3,5 shutdown -r +5# 每小时的10分,40分执行用户目录下的innd/bbslin这个指令： 10,40 * * * * innd/bbslink # 每小时的1分执行用户目录下的bin/account这个指令： 1 * * * * bin/account# 每天早晨三点二十分执行用户目录下如下所示的两个指令（每个指令以;分隔）： 20 3 * * * （/bin/rm -f expire.ls logins.bad;bin/expire$#@62;expire.1st）]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+        <tag>定时任务</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[spark-submit脚本]]></title>
     <url>%2F2019%2F03%2F20%2Fspark-submit%E8%84%9A%E6%9C%AC%2F</url>
     <content type="text"><![CDATA[此spark-submit脚本可以配合定时任务，定时任务做定时5分钟（时间随你定，建议大于1分钟），用于监控spark实时任务，若spark实时任务挂掉，5分钟后会重新启动 spark-submit脚本：12345678910111213141516#!/bin/bash count=`ps -ef | grep totalUriStreaming | grep -v grep | wc -l` kinit -kt /root/hdfs.keytab hdfs/p37.awifi.com@AWIFI.COM #此为kebros安全认证，若集群中没有kebros安全认证则不需要 if [ $count == 0 ]; then echo &quot;Start totalLogUriNums ...&quot; nohup spark-submit \ --class com.awifi.bigdata.syslog.totalLogUriNums.totalUriStreaming \ --master yarn \ --driver-memory 2G \ --executor-memory 4G \ --deploy-mode client \ --num-executors 12 \ --executor-cores 2 \ --jars /opt/gofunTest/jars/commons-pool2-2.0.jar,/opt/gofunTest/jars/jedis-2.8.1.jar,/opt/gofunTest/jars/fastjson-1.2.30.jar,/opt/gofunTest/jars/mysql-connector-java-5.1.41-bin.jar \ /opt/gofunTest/totalUriNums/sparkAnalysis.jar &gt; /opt/gofunTest/totalUriNums/totalUriNums.out 2&gt;&amp;1 &amp; fi 定时任务：(可以看我另一篇关于定时任务的博客)1*/5 * * * * root /xxx/xxx/xxx/spark-submit.sh]]></content>
