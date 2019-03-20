@@ -99,11 +99,11 @@
 <meta name="keywords" content="Hive优化">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hive优化">
-<meta property="og:url" content="https://www.gofunink.com/2019/03/07/Hive的优化总结/index.html">
+<meta property="og:url" content="https://www.gofunink.com/2019/03/07/Hive优化/index.html">
 <meta property="og:site_name" content="gofunink&#39;s blog">
 <meta property="og:description" content="HIVE的优化总结Hive是将符合SQL语法的字符串解析生成可以在Hadoop上执行的MapReduce的工具。使用Hive尽量按照分布式计算的一些特点来设计sql，和传统关系型数据库有区别， 所以需要去掉原有关系型数据库下开发的一些固有思维。 基本原则： 1、尽量尽早地过滤数据，减少每个阶段的数据量,对于分区表要加分区，同时只选择需要使用到的字段12345678910111213select">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-20T07:50:50.406Z">
+<meta property="og:updated_time" content="2019-03-20T08:00:14.561Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hive优化">
 <meta name="twitter:description" content="HIVE的优化总结Hive是将符合SQL语法的字符串解析生成可以在Hadoop上执行的MapReduce的工具。使用Hive尽量按照分布式计算的一些特点来设计sql，和传统关系型数据库有区别， 所以需要去掉原有关系型数据库下开发的一些固有思维。 基本原则： 1、尽量尽早地过滤数据，减少每个阶段的数据量,对于分区表要加分区，同时只选择需要使用到的字段12345678910111213select">
@@ -165,7 +165,7 @@
 
 
 
-  <link rel="canonical" href="https://www.gofunink.com/2019/03/07/Hive的优化总结/">
+  <link rel="canonical" href="https://www.gofunink.com/2019/03/07/Hive优化/">
 
 
 
@@ -370,7 +370,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.gofunink.com/2019/03/07/Hive的优化总结/">
+    <link itemprop="mainEntityOfPage" href="https://www.gofunink.com/2019/03/07/Hive优化/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="gofunink">
@@ -440,8 +440,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/03/07/Hive的优化总结/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/03/07/Hive的优化总结/" itemprop="commentCount"></span>
+                <a href="/2019/03/07/Hive优化/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/03/07/Hive优化/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -524,16 +524,13 @@ background: #fff;padding: 25px;margin-bottom: 100px;"> -->
 <ul>
 <li><p>如果出现数据倾斜，应当做如下处理：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">set hive.exec.reducers.max=200;</span><br><span class="line"></span><br><span class="line">set mapred.reduce.tasks= 200;                    ---增大Reduce个数</span><br><span class="line"></span><br><span class="line">set hive.groupby.mapaggr.checkinterval=100000;   --这个是group的键对应的记录条数超过这个值则会进行分拆,值根据具体数据量设置</span><br><span class="line"></span><br><span class="line">set hive.groupby.skewindata=true;                --如果是group by过程出现倾斜 应该设置为true</span><br><span class="line"></span><br><span class="line">set hive.skewjoin.key=100000;                    --这个是join的键对应的记录条数超过这个值则会进行分拆,值根据具体数据量设置</span><br><span class="line"></span><br><span class="line">set hive.optimize.skewjoin=true;                 --如果是join 过程出现倾斜 应该设置为true</span><br></pre></td></tr></table></figure>
-<p> (1)  启动一次job尽可能的多做事情，一个job能完成的事情,不要两个job来做</p>
-<p> 通常来说前面的任务启动可以稍带一起做的事情就一起做了,以便后续的多个任务重用,与此紧密相连的是模型设计,好的模型特别重要.</p>
-<p> (2) 合理设置reduce个数</p>
-<p> reduce个数过少没有真正发挥hadoop并行计算的威力，但reduce个数过多，会造成大量小文件问题                        ，数据量、资源情况只有自己最清楚，找到个折衷点,</p>
-<p> (3) 使用hive.exec.parallel参数控制在同一个sql中的不同的job是否可以同时运行，提高作业的并发</p>
+<p>  (1)  启动一次job尽可能的多做事情，一个job能完成的事情,不要两个job来做</p>
+<p>  通常来说前面的任务启动可以稍带一起做的事情就一起做了,以便后续的多个任务重用,与此紧密相连的是模型设计,好的模型特别重要.</p>
+<p>  (2) 合理设置reduce个数</p>
+<p>  reduce个数过少没有真正发挥hadoop并行计算的威力，但reduce个数过多，会造成大量小文件问题                        ，数据量、资源情况只有自己最清楚，找到个折衷点,</p>
+<p>  (3) 使用hive.exec.parallel参数控制在同一个sql中的不同的job是否可以同时运行，提高作业的并发</p>
 </li>
-</ul>
-<ul>
-<li>让服务器尽量少做事情，走最优的路径，以资源消耗最少为目标</li>
-</ul>
+<li><p>让服务器尽量少做事情，走最优的路径，以资源消耗最少为目标</p>
 <p>(1) 注意join的使用</p>
 <pre><code>若其中有一个表很小使用map join，否则使用普通的reduce join，注意hive会将join前面的表数据装载内存,所以较小的一个表在较大的表之前,减少内存资源的消耗
 </code></pre><p>(2)注意小文件的问题</p>
@@ -565,16 +562,16 @@ hive.merge.size.per.task = 256*1000*1000 合并文件的大小
 
 union all用好，可减少表的扫描次数，减少job的个数,通常预先按不同逻辑不同条件生成的查询union all后，再统一group by计算,不同表的union all相当于multiple inputs,同一个表的union all,相当map一次输出多条
 </code></pre><p>(5) 参数设置的调优</p>
-<pre><code>集群参数种类繁多,举个例子比如
-
-可针对特定job设置特定参数,比如jvm重用,reduce copy线程数量设置(适合map较快，输出量较大)
-
-如果任务数多且小，比如在一分钟之内完成，减少task数量以减少任务初始化的消耗。可以通过配置JVM重用选项减少task的消耗
-</code></pre><p><strong>一、控制Hive中Map和reduce的数量</strong></p>
+<p>   集群参数种类繁多,举个例子比如</p>
+<p>   可针对特定job设置特定参数,比如jvm重用,reduce copy线程数量设置(适合map较快，输出量较大)</p>
+<p>   如果任务数多且小，比如在一分钟之内完成，减少task数量以减少任务初始化的消耗。可以通过配置JVM重用选项减少task的消耗</p>
+</li>
+</ul>
+<p><strong>一、控制Hive中Map和reduce的数量</strong></p>
 <pre><code>Hive中的sql查询会生成执行计划，执行计划以MapReduce的方式执行，那么结合数据和集群的大小，map和reduce的数量就会影响到sql执行的效率。
 
 除了要控制Hive生成的Job的数量，也要控制map和reduce的数量。
-</code></pre><p><strong>1、map的数量，通常情况下和split的大小有关系</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"> hive中默认的hive.input.format是org.apache.hadoop.hive.ql.io.CombineHiveInputFormat，对于combineHiveInputFormat,它的输入的map数量由三个配置决定，</span><br><span class="line"></span><br><span class="line">mapred.min.split.size.per.node， 一个节点上split的至少的大小</span><br><span class="line"></span><br><span class="line">mapred.min.split.size.per.rack 一个交换机下split至少的大小</span><br><span class="line"></span><br><span class="line">mapred.max.split.size 一个split最大的大小</span><br></pre></td></tr></table></figure></p>
+</code></pre><p><strong>1、map的数量，通常情况下和split的大小有关系</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">hive中默认的hive.input.format是org.apache.hadoop.hive.ql.io.CombineHiveInputFormat，对于combineHiveInputFormat,它的输入的map数量由三个配置决定，</span><br><span class="line"></span><br><span class="line">mapred.min.split.size.per.node， 一个节点上split的至少的大小</span><br><span class="line"></span><br><span class="line">mapred.min.split.size.per.rack 一个交换机下split至少的大小</span><br><span class="line"></span><br><span class="line">mapred.max.split.size 一个split最大的大小</span><br></pre></td></tr></table></figure></p>
 <p>它的主要思路是把输入目录下的大文件分成多个map的输入, 并合并小文件, 做为一个map的输入. 具体的原理是下述三步:</p>
 <pre><code>a、根据输入目录下的每个文件,如果其长度超过mapred.max.split.size,以block为单位分成多个split(一个split是一个map的输入),每个split的长度都大于mapred.max.split.size, 因为以block为单位, 因此也会大于blockSize, 此文件剩下的长度如果大于mapred.min.split.size.per.node, 则生成一个split, 否则先暂时保留.
 
