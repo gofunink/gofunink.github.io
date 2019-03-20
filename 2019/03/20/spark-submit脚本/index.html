@@ -103,7 +103,7 @@
 <meta property="og:site_name" content="gofunink&#39;s blog">
 <meta property="og:description" content="此spark-submit脚本可以配合定时任务，定时任务做定时5分钟（时间随你定，建议大于1分钟），用于监控spark实时任务，若spark实时任务挂掉，5分钟后会重新启动 spark-submit脚本：12345678910111213141516#!/bin/bash count=`ps -ef | grep totalUriStreaming | grep -v grep | wc -l`">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-20T06:21:19.025Z">
+<meta property="og:updated_time" content="2019-03-20T08:28:13.453Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="spark-submit脚本">
 <meta name="twitter:description" content="此spark-submit脚本可以配合定时任务，定时任务做定时5分钟（时间随你定，建议大于1分钟），用于监控spark实时任务，若spark实时任务挂掉，5分钟后会重新启动 spark-submit脚本：12345678910111213141516#!/bin/bash count=`ps -ef | grep totalUriStreaming | grep -v grep | wc -l`">
@@ -405,7 +405,19 @@
             
 
             
+              <span class="post-meta-divider">|</span>
+            
 
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-03-20T16:28:13+08:00">
+                2019-03-20
+              </time>
             
           </span>
 
@@ -505,8 +517,8 @@
       
 
       
-        <p>此spark-submit脚本可以配合定时任务，定时任务做定时5分钟（时间随你定，建议大于1分钟），用于监控spark实时任务，若spark实时任务挂掉，5分钟后会重新启动</p>
-<p>spark-submit脚本：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line"> count=`ps -ef | grep totalUriStreaming | grep -v grep | wc -l` </span><br><span class="line"> kinit -kt /root/hdfs.keytab hdfs/p37.awifi.com@AWIFI.COM  #此为kebros安全认证，若集群中没有kebros安全认证则不需要</span><br><span class="line"> if [ $count == 0 ]; then      </span><br><span class="line">     echo &quot;Start totalLogUriNums ...&quot;      </span><br><span class="line">     nohup spark-submit \</span><br><span class="line">     --class com.awifi.bigdata.syslog.totalLogUriNums.totalUriStreaming \</span><br><span class="line">     --master yarn \</span><br><span class="line">     --driver-memory 2G \</span><br><span class="line">     --executor-memory 4G \</span><br><span class="line">     --deploy-mode client \</span><br><span class="line">     --num-executors 12 \</span><br><span class="line">     --executor-cores 2 \</span><br><span class="line">     --jars /opt/gofunTest/jars/commons-pool2-2.0.jar,/opt/gofunTest/jars/jedis-2.8.1.jar,/opt/gofunTest/jars/fastjson-1.2.30.jar,/opt/gofunTest/jars/mysql-connector-java-5.1.41-bin.jar \</span><br><span class="line">     /opt/gofunTest/totalUriNums/sparkAnalysis.jar &gt; /opt/gofunTest/totalUriNums/totalUriNums.out 2&gt;&amp;1 &amp; </span><br><span class="line"> fi</span><br></pre></td></tr></table></figure></p>
+        <pre><code>此spark-submit脚本可以配合定时任务，定时任务做定时5分钟（时间随你定，建议大于1分钟），用于监控spark实时任务，若spark实时任务挂掉，5分钟后会重新启动
+</code></pre><p>spark-submit脚本：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line"> count=`ps -ef | grep totalUriStreaming | grep -v grep | wc -l` </span><br><span class="line"> kinit -kt /root/hdfs.keytab hdfs/p37.awifi.com@AWIFI.COM  #此为kebros安全认证，若集群中没有kebros安全认证则不需要</span><br><span class="line"> if [ $count == 0 ]; then      </span><br><span class="line">     echo &quot;Start totalLogUriNums ...&quot;      </span><br><span class="line">     nohup spark-submit \</span><br><span class="line">     --class com.awifi.bigdata.syslog.totalLogUriNums.totalUriStreaming \</span><br><span class="line">     --master yarn \</span><br><span class="line">     --driver-memory 2G \</span><br><span class="line">     --executor-memory 4G \</span><br><span class="line">     --deploy-mode client \</span><br><span class="line">     --num-executors 12 \</span><br><span class="line">     --executor-cores 2 \</span><br><span class="line">     --jars /opt/gofunTest/jars/commons-pool2-2.0.jar,/opt/gofunTest/jars/jedis-2.8.1.jar,/opt/gofunTest/jars/fastjson-1.2.30.jar,/opt/gofunTest/jars/mysql-connector-java-5.1.41-bin.jar \</span><br><span class="line">     /opt/gofunTest/totalUriNums/sparkAnalysis.jar &gt; /opt/gofunTest/totalUriNums/totalUriNums.out 2&gt;&amp;1 &amp; </span><br><span class="line"> fi</span><br></pre></td></tr></table></figure></p>
 <p>定时任务：(可以看我另一篇关于定时任务的博客)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">*/5 * * * * root /xxx/xxx/xxx/spark-submit.sh</span><br></pre></td></tr></table></figure></p>
 
       
@@ -1373,7 +1385,8 @@
 
   
 
-  
+  <script type="text/javascript" src="/lib/clipboard/clipboard.js"></script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
   <a href="https://github.com/gofunink"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/c6286ade715e9bea433b4705870de482a654f78a/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f77686974655f6666666666662e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_white_ffffff.png"></a>
 </body>
 </html>

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://www.gofunink.com/2019/03/07/Hive%E4%BC%98%E5%8C%96/</loc>
-    <lastmod>2019-03-20</lastmod>
-  </url>  <url>
     <loc>https://www.gofunink.com/2019/03/20/Linux%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E4%BD%BF%E7%94%A8/</loc>
     <lastmod>2019-03-20</lastmod>
   </url>  <url>
     <loc>https://www.gofunink.com/2019/03/20/spark-submit%E8%84%9A%E6%9C%AC/</loc>
+    <lastmod>2019-03-20</lastmod>
+  </url>  <url>
+    <loc>https://www.gofunink.com/2019/03/07/Hive%E4%BC%98%E5%8C%96/</loc>
     <lastmod>2019-03-20</lastmod>
   </url>  <url>
     <loc>https://www.gofunink.com/2019/03/20/CM%E9%9B%86%E7%BE%A4%E4%B8%AD%E4%BF%AE%E6%94%B9spark%E5%BA%94%E7%94%A8%E5%86%85%E5%AD%98/</loc>
