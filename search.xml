@@ -1,6 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[spark-submit脚本]]></title>
+    <url>%2F2019%2F03%2F20%2Fspark-submit%E8%84%9A%E6%9C%AC%2F</url>
+    <content type="text"><![CDATA[此spark-submit脚本可以配合定时任务，定时任务做定时5分钟（时间随你定，建议大于1分钟），用于监控spark实时任务，若spark实时任务挂掉，5分钟后会重新启动 spark-submit脚本：12345678910111213141516#!/bin/bash count=`ps -ef | grep totalUriStreaming | grep -v grep | wc -l` kinit -kt /root/hdfs.keytab hdfs/p37.awifi.com@AWIFI.COM #此为kebros安全认证，若集群中没有kebros安全认证则不需要 if [ $count == 0 ]; then echo &quot;Start totalLogUriNums ...&quot; nohup spark-submit \ --class com.awifi.bigdata.syslog.totalLogUriNums.totalUriStreaming \ --master yarn \ --driver-memory 2G \ --executor-memory 4G \ --deploy-mode client \ --num-executors 12 \ --executor-cores 2 \ --jars /opt/gofunTest/jars/commons-pool2-2.0.jar,/opt/gofunTest/jars/jedis-2.8.1.jar,/opt/gofunTest/jars/fastjson-1.2.30.jar,/opt/gofunTest/jars/mysql-connector-java-5.1.41-bin.jar \ /opt/gofunTest/totalUriNums/sparkAnalysis.jar &gt; /opt/gofunTest/totalUriNums/totalUriNums.out 2&gt;&amp;1 &amp; fi 定时任务：(可以看我另一篇关于定时任务的博客)1*/5 * * * * root /xxx/xxx/xxx/spark-submit.sh]]></content>
+      <categories>
+        <category>Spark</category>
+      </categories>
+      <tags>
+        <tag>Spark</tag>
+        <tag>spark-submit</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[CM集群中修改spark应用内存]]></title>
+    <url>%2F2019%2F03%2F20%2FCM%E9%9B%86%E7%BE%A4%E4%B8%AD%E4%BF%AE%E6%94%B9spark%E5%BA%94%E7%94%A8%E5%86%85%E5%AD%98%2F</url>
+    <content type="text"><![CDATA[工作中可能会遇到这种问题：集群的spark工作内存太小，比如只有50个G，如果想让spark工作内存变成100个G，则需要在CM控制台修改以下两个参数12yarn.nodemanager.resource.memory-mbyarn.nodemanager.resource.cpu-vcores]]></content>
+      <categories>
+        <category>Spark</category>
+        <category>CM</category>
+      </categories>
+      <tags>
+        <tag>Spark</tag>
+        <tag>CM</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[SparkRDD转DataFrame的两种方式]]></title>
     <url>%2F2019%2F03%2F20%2FSparkRDD%E8%BD%ACDataFrame%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%96%B9%E5%BC%8F%2F</url>
     <content type="text"><![CDATA[SparkRDD转DataFrame 映射的方式1234567891011121314151617181920212223242526272829303132333435363738394041package com.gofun.sparkSqlimport org.apache.log4j.&#123;Level, Logger&#125;import org.apache.spark.&#123;SparkConf, SparkContext&#125;import org.apache.spark.sql.SQLContext/** * Create by IntelliJ IDEA. * Author gofun * 2017/10/10 20:18 */object RDD2DataFrameReflection &#123; Logger.getLogger(&quot;org.apache.spark&quot;).setLevel(Level.WARN) Logger.getLogger(&quot;org.apache.eclipse.jetty.server&quot;).setLevel(Level.OFF) def main(args: Array[String]): Unit = &#123; rdd2DataFrame() &#125; //rdd与dataframe转换 //在scala中使用反射方式，进行RDD到DataFrame转换，需要手动导入 def rdd2DataFrame(): Unit = &#123; val conf = new SparkConf().setAppName(&quot;rdd2DataFrame&quot;).setMaster(&quot;local[2]&quot;) conf.set(&quot;hbase.zookeeper.quorum&quot;, &quot;192.168.157.200:2181&quot;) val sc = new SparkContext(conf) val sqlContext = new SQLContext(sc) // System.setProperty(&quot;hadoop.home.dir&quot;, &quot;E:\\hadoop-2.5.0-cdh5.3.6&quot;) val lines = sc.textFile(&quot;hdfs://192.xxx.xxx.200:8020/test/student.txt&quot;) val students = lines.map(_.split(&quot;\t&quot;)) .map &#123; line =&gt; Student(line(0).trim().toInt, line(1).trim()) &#125; val studentDF = sqlContext.createDataFrame(students) studentDF.registerTempTable(&quot;studentTable&quot;) val df = sqlContext.sql(&quot;select * from studentTable&quot;) df.rdd.collect().foreach(println) sc.stop() &#125;&#125;case class Student(id: Int, name: String) SparkRDD转DataFrame 构造元数据的方式1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253package com.gofun.sparkSqlimport org.apache.log4j.&#123;Level, Logger&#125;import org.apache.spark.&#123;SparkConf, SparkContext&#125;import org.apache.spark.sql.&#123;Row, RowFactory, SQLContext&#125;import org.apache.spark.sql.types._/** * Create by IntelliJ IDEA. * Author gofun * 2017/10/10 20:19 */object RDD2DataFrameProgrammatically extends App &#123; Logger.getLogger(&quot;org.apache.spark&quot;).setLevel(Level.WARN) Logger.getLogger(&quot;org.apache.eclipse.jetty.server&quot;).setLevel(Level.OFF) override def main(args: Array[String]): Unit = &#123; rdd2DataFrame() &#125; //构造元数据的方式加载数据将rdd转换为dataFrame def rdd2DataFrame(): Unit = &#123; val conf = new SparkConf().setAppName(&quot;RDD2DataFrameProgrammatically&quot;).setMaster(&quot;local[2]&quot;) val sc = new SparkContext(conf) val sqlContext = new SQLContext(sc) val lines = sc.textFile(&quot;hdfs://192.xxx.xx.200:8020/test/student.txt&quot;) val studentRdd = lines.map(_.split(&quot; &quot;)).map(line =&gt; RowFactory.create(Integer.valueOf(line(0)), String.valueOf(line(1)), Integer.valueOf(line(2)))) val fields = new scala.collection.mutable.ArrayBuffer[StructField]() fields += DataTypes.createStructField(&quot;id&quot;, DataTypes.IntegerType, true) fields += DataTypes.createStructField(&quot;name&quot;, DataTypes.StringType, true) fields += DataTypes.createStructField(&quot;age&quot;, DataTypes.IntegerType, true) val structType = DataTypes.createStructType(fields.toArray) val studentDF = sqlContext.createDataFrame(studentRdd, structType) studentDF.registerTempTable(&quot;student&quot;) val df = sqlContext.sql(&quot;select name from student&quot;) df.rdd.collect().foreach(println) sc.stop() &#125; def rdd2DataFrame2(): Unit = &#123; val conf = new SparkConf().setAppName(&quot;RDD2DataFrameProgrammatically&quot;).setMaster(&quot;local[2]&quot;) val sc = new SparkContext(conf) val sqlContext = new SQLContext(sc) val lines = sc.textFile(&quot;hdfs://192.168.64.200:8020/test/student.txt&quot;, 1) val studentRDD = lines.map(line =&gt; Row(line.split(&quot; &quot;)(0).toInt, line.split(&quot; &quot;)(1), line.split(&quot; &quot;)(2).toInt)) val structType = StructType(Array(StructField(&quot;id&quot;, IntegerType, true), StructField(&quot;name&quot;, StringType, true), StructField(&quot;age&quot;, IntegerType, true))) val studentDF = sqlContext.createDataFrame(studentRDD, structType) studentDF.registerTempTable(&quot;student&quot;) val df = sqlContext.sql(&quot;select name,age from student&quot;) df.rdd.foreach(println) &#125;&#125;]]></content>

@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://www.gofunink.com/2019/03/20/spark-submit%E8%84%9A%E6%9C%AC/</loc>
+    <lastmod>2019-03-20</lastmod>
+  </url>  <url>
+    <loc>https://www.gofunink.com/2019/03/20/CM%E9%9B%86%E7%BE%A4%E4%B8%AD%E4%BF%AE%E6%94%B9spark%E5%BA%94%E7%94%A8%E5%86%85%E5%AD%98/</loc>
+    <lastmod>2019-03-20</lastmod>
+  </url>  <url>
     <loc>https://www.gofunink.com/2019/03/20/SparkRDD%E8%BD%ACDataFrame%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%96%B9%E5%BC%8F/</loc>
     <lastmod>2019-03-20</lastmod>
   </url>  <url>
