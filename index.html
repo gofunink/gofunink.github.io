@@ -1579,7 +1579,7 @@ UNIX时间戳转日期函数: from_unixtime1234567语法: from_unixtime(bigint u
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/03/07/Hive的优化总结/" itemprop="url">Hive的优化总结</a></h1>
+                <a class="post-title-link" href="/2019/03/07/Hive的优化总结/" itemprop="url">Hive优化</a></h1>
         
 
         <div class="post-meta">
@@ -1655,7 +1655,7 @@ UNIX时间戳转日期函数: from_unixtime1234567语法: from_unixtime(bigint u
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  3,227
+                  3,243
                 </span>
               
 
@@ -1694,7 +1694,12 @@ UNIX时间戳转日期函数: from_unixtime1234567语法: from_unixtime(bigint u
       
         
           
-          # HIVE的优化总结Hive是将符合SQL语法的字符串解析生成可以在Hadoop上执行的MapReduce的工具。使用Hive尽量按照分布式计算的一些特点来设计sql，和传统关系型数据库有区别，所以需要去掉原有关系型数据库下开发的一些固有思维。基本原则：1、尽量尽早地过滤数据，减少每个阶段的数据量,对于分区表要加分区，同时只选择需要使用到的字段12345678910111213select ... from Ajoin Bon A.key = B.keywhere A.userid&gt;10     and B.userid&lt;10     and A.dt=&apos;20120417&apos;     and B.dt=&apos;20120417&apos;;应该改写为：123456789101112131415161718select ....   from (selec
+           -->
+HIVE的优化总结Hive是将符合SQL语法的字符串解析生成可以在Hadoop上执行的MapReduce的工具。使用Hive尽量按照分布式计算的一些特点来设计sql，和传统关系型数据库有区别，
+所以需要去掉原有关系型数据库下开发的一些固有思维。
+基本原则：
+1、尽量尽早地过滤数据，减少每个阶段的数据量,对于分区表要加分区，同时只选择需要使用到的字段12345678910111213select ... from Ajoin Bon A.key = B.keywhere A.userid&gt;10     and B.userid&lt;10     and A.dt=&apos;20120417&apos;     and B.dt=&apos;20120417&apos;;
+应该改写为：123456789101112131415161718select ....   from
           ...
           <!--noindex-->
           <div class="post-button text-center">
