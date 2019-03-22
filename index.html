@@ -416,8 +416,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-03-20T16:28:22+08:00">
-                2019-03-20
+              <time title="更新于" itemprop="dateModified" datetime="2019-03-22T15:22:17+08:00">
+                2019-03-22
               </time>
             
           </span>
@@ -514,11 +514,9 @@
 
       
         
-          
-          1234567.---------------- minute (0 - 59) |  .------------- hour (0 - 23)|  |  .---------- day of month (1 - 31)|  |  |  .------- month (1 - 12) OR jan,feb,mar,apr ... |  |  |  |  .---- day of week (0 - 6) (Sunday=0 or 7)  OR sun,mon,tue,wed,thu,fri,sat |  |  |  |  |*  *  *  *  *  command to be executed
-
-1234567minute：代表一小时内的第几分,范围 0-59。hour：代表一天中的第几小时,范围 0-23。mday：代表一个月中的第几天,范围 1-31。month：代表一年中第几个
-          ...
+          <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.---------------- minute (0 - 59) </span><br><span class="line">|  .------------- hour (0 - 23)</span><br><span class="line">|  |  .---------- day of month (1 - 31)</span><br><span class="line">|  |  |  .------- month (1 - 12) OR jan,feb,mar,apr ... </span><br><span class="line">|  |  |  |  .---- day of week (0 - 6) (Sunday=0 or 7)  OR sun,mon,tue,wed,thu,fri,sat </span><br><span class="line">|  |  |  |  |</span><br><span class="line">*  *  *  *  *  command to be executed</span><br></pre></td></tr></table></figure>
+<hr>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">minute：代表一小时内的第几分,范围 0-59。</span><br><span class="line">hour：代表一天中的第几小时,范围 0-23。</span><br><span class="line">mday：代表一个月中的第几天,范围 1-31。</span><br><span class="line">month：代表一年中第几个月,范围 1-12。</span><br><span class="line">wday：代表星期几,范围 0-7 (0及7都是星期天)。</span><br><span class="line">who：要使用什么身份执行该指令,当您使用 crontab -e 时,不必加此字段。</span><br><span class="line">command：所要执行的指令。</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2019/03/20/Linux定时任务使用/#more" rel="contents">
@@ -624,8 +622,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-03-20T16:28:13+08:00">
-                2019-03-20
+              <time title="更新于" itemprop="dateModified" datetime="2019-03-22T15:34:47+08:00">
+                2019-03-22
               </time>
             
           </span>
@@ -722,10 +720,9 @@
 
       
         
-          
-          此spark-submit脚本可以配合定时任务，定时任务做定时5分钟（时间随你定，建议大于1分钟），用于监控spark实时任务，若spark实时任务挂掉，5分钟后会重新启动
-spark-submit脚本：12345678910111213141516#!/bin/bash count=`ps -ef | grep totalUriStreaming | grep -v grep | wc -l`  kinit -kt /root/hdfs.keytab hdfs/p37.awifi.com@AWIFI.COM  #此为kebros安全认证，若集群中没有kebros安全认证则不需要 if [ $count == 0 ]; then           echo &quot;Start totalLogUriNums ...&quot;           nohup spark-submit
-          ...
+          <pre><code>此spark-submit脚本可以配合定时任务，定时任务做定时5分钟（时间随你定，建议大于1分钟），用于监控spark实时任务，若spark实时任务挂掉，5分钟后会重新启动
+</code></pre><p>spark-submit脚本：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line"> count=`ps -ef | grep totalUriStreaming | grep -v grep | wc -l` </span><br><span class="line"> kinit -kt /root/hdfs.keytab hdfs/p37.awifi.com@AWIFI.COM  #此为kebros安全认证，若集群中没有kebros安全认证则不需要</span><br><span class="line"> if [ $count == 0 ]; then      </span><br><span class="line">     echo &quot;Start totalLogUriNums ...&quot;      </span><br><span class="line">     nohup spark-submit \</span><br><span class="line">     --class com.awifi.bigdata.syslog.totalLogUriNums.totalUriStreaming \</span><br><span class="line">     --master yarn \</span><br><span class="line">     --driver-memory 2G \</span><br><span class="line">     --executor-memory 4G \</span><br><span class="line">     --deploy-mode client \</span><br><span class="line">     --num-executors 12 \</span><br><span class="line">     --executor-cores 2 \</span><br><span class="line">     --jars /opt/gofunTest/jars/commons-pool2-2.0.jar,/opt/gofunTest/jars/jedis-2.8.1.jar,/opt/gofunTest/jars/fastjson-1.2.30.jar,/opt/gofunTest/jars/mysql-connector-java-5.1.41-bin.jar \</span><br><span class="line">     /opt/gofunTest/totalUriNums/sparkAnalysis.jar &gt; /opt/gofunTest/totalUriNums/totalUriNums.out 2&gt;&amp;1 &amp; </span><br><span class="line"> fi</span><br></pre></td></tr></table></figure></p>
+<p>定时任务：(可以看我另一篇关于定时任务的博客)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">*/5 * * * * root /xxx/xxx/xxx/spark-submit.sh</span><br></pre></td></tr></table></figure></p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2019/03/20/spark-submit脚本/#more" rel="contents">
@@ -941,15 +938,8 @@ spark-submit脚本：12345678910111213141516#!/bin/bash count=`ps -ef | grep tot
       
         
           
-          工作中可能会遇到这种问题：集群的spark工作内存太小，比如只有50个G，如果想让spark工作内存变成100个G，则需要在CM控制台修改以下两个参数12yarn.nodemanager.resource.memory-mbyarn.nodemanager.resource.cpu-vcores
+            <h5 id="工作中可能会遇到这种问题："><a href="#工作中可能会遇到这种问题：" class="headerlink" title="工作中可能会遇到这种问题："></a>工作中可能会遇到这种问题：</h5><h5 id="集群的spark工作内存太小，比如只有50个G，如果想让spark工作内存变成100个G，则需要在CM控制台修改以下两个参数"><a href="#集群的spark工作内存太小，比如只有50个G，如果想让spark工作内存变成100个G，则需要在CM控制台修改以下两个参数" class="headerlink" title="集群的spark工作内存太小，比如只有50个G，如果想让spark工作内存变成100个G，则需要在CM控制台修改以下两个参数"></a>集群的spark工作内存太小，比如只有50个G，如果想让spark工作内存变成100个G，则需要在CM控制台修改以下两个参数</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yarn.nodemanager.resource.memory-mb</span><br><span class="line">yarn.nodemanager.resource.cpu-vcores</span><br></pre></td></tr></table></figure>
           
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/03/20/CM集群中修改spark应用内存/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
         
       
     </div>
@@ -1048,8 +1038,8 @@ spark-submit脚本：12345678910111213141516#!/bin/bash count=`ps -ef | grep tot
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-03-20T11:28:27+08:00">
-                2019-03-20
+              <time title="更新于" itemprop="dateModified" datetime="2019-03-22T15:34:36+08:00">
+                2019-03-22
               </time>
             
           </span>
@@ -1146,9 +1136,7 @@ spark-submit脚本：12345678910111213141516#!/bin/bash count=`ps -ef | grep tot
 
       
         
-          
-          SparkRDD转DataFrame 映射的方式1234567891011121314151617181920212223242526272829303132333435363738394041package com.gofun.sparkSqlimport org.apache.log4j.&#123;Level, Logger&#125;import org.apache.spark.&#123;SparkConf, SparkContext&#125;import org.apache.spark.sql.SQLContext/**  * Create by IntelliJ IDEA.  * Author gofun  * 2017/10/10 20:18  */object RDD2DataFrameReflection &#123;  Logger.getLogger(&quo
-          ...
+          <h3 id="SparkRDD转DataFrame-映射的方式"><a href="#SparkRDD转DataFrame-映射的方式" class="headerlink" title="SparkRDD转DataFrame 映射的方式"></a>SparkRDD转DataFrame 映射的方式</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">package com.gofun.sparkSql</span><br><span class="line"></span><br><span class="line">import org.apache.log4j.&#123;Level, Logger&#125;</span><br><span class="line">import org.apache.spark.&#123;SparkConf, SparkContext&#125;</span><br><span class="line">import org.apache.spark.sql.SQLContext</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line">  * Create by IntelliJ IDEA.</span><br><span class="line">  * Author gofun</span><br><span class="line">  * 2017/10/10 20:18</span><br><span class="line">  */</span><br><span class="line">object RDD2DataFrameReflection &#123;</span><br><span class="line">  Logger.getLogger(&quot;org.apache.spark&quot;).setLevel(Level.WARN)</span><br><span class="line">  Logger.getLogger(&quot;org.apache.eclipse.jetty.server&quot;).setLevel(Level.OFF)</span><br><span class="line"></span><br><span class="line">  def main(args: Array[String]): Unit = &#123;</span><br><span class="line">    rdd2DataFrame()</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  //rdd与dataframe转换</span><br><span class="line">  //在scala中使用反射方式，进行RDD到DataFrame转换，需要手动导入</span><br><span class="line">  def rdd2DataFrame(): Unit = &#123;</span><br><span class="line">    val conf = new SparkConf().setAppName(&quot;rdd2DataFrame&quot;).setMaster(&quot;local[2]&quot;)</span><br><span class="line">    conf.set(&quot;hbase.zookeeper.quorum&quot;, &quot;192.168.157.200:2181&quot;)</span><br><span class="line">    val sc = new SparkContext(conf)</span><br><span class="line">    val sqlContext = new SQLContext(sc)</span><br><span class="line">    //    System.setProperty(&quot;hadoop.home.dir&quot;, &quot;E:\\hadoop-2.5.0-cdh5.3.6&quot;)</span><br><span class="line">    val lines = sc.textFile(&quot;hdfs://192.xxx.xxx.200:8020/test/student.txt&quot;)</span><br><span class="line">    val students = lines.map(_.split(&quot;\t&quot;))</span><br><span class="line">      .map &#123; line =&gt;</span><br><span class="line">        Student(line(0).trim().toInt, line(1).trim())</span><br><span class="line">      &#125;</span><br><span class="line">    val studentDF = sqlContext.createDataFrame(students)</span><br><span class="line">    studentDF.registerTempTable(&quot;studentTable&quot;)</span><br><span class="line">    val df = sqlContext.sql(&quot;select * from studentTable&quot;)</span><br><span class="line">    df.rdd.collect().foreach(println)</span><br><span class="line">    sc.stop()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">case class Student(id: Int, name: String)</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2019/03/20/SparkRDD转DataFrame的两种方式/#more" rel="contents">
@@ -1254,8 +1242,8 @@ spark-submit脚本：12345678910111213141516#!/bin/bash count=`ps -ef | grep tot
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-03-20T11:09:56+08:00">
-                2019-03-20
+              <time title="更新于" itemprop="dateModified" datetime="2019-03-22T15:27:27+08:00">
+                2019-03-22
               </time>
             
           </span>
@@ -1352,11 +1340,12 @@ spark-submit脚本：12345678910111213141516#!/bin/bash count=`ps -ef | grep tot
 
       
         
-          
-           -->
-当前时间123456语法: select from_unixtime(unix_timestamp(),&apos;yyyy-MM-dd HH:mm:ss’)返回值: stringhive&gt; select from_unixtime(1323308943,’yyyyMMdd’) from dual;2019-03-19 17:37:03
-UNIX时间戳转日期函数: from_unixtime1234567语法: from_unixtime(bigint unixtime[, string format]) 返回值: string说明: 转化UNIX时间戳（从1970-01-01 00:00:00 UTC到指定时间的秒数）到当前时区的时间格式举例：hive&gt; select from_unixtime(1323308943,’yyyyMMdd’) from dual;20
-          ...
+          <!-- <div style="-webkit-box-shadow: 0 0 14px rgba(202,203,203,1);-moz-box-shadow: 0 0 14px rgba(202,203,204,1);
+background: #fff;padding: 25px;margin-bottom: 100px;"> -->
+<h5 id="当前时间"><a href="#当前时间" class="headerlink" title="当前时间"></a>当前时间</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">语法: select from_unixtime(unix_timestamp(),&apos;yyyy-MM-dd HH:mm:ss’)</span><br><span class="line"></span><br><span class="line">返回值: string</span><br><span class="line"></span><br><span class="line">hive&gt; select from_unixtime(1323308943,’yyyyMMdd’) from dual;</span><br><span class="line">2019-03-19 17:37:03</span><br></pre></td></tr></table></figure>
+<h5 id="UNIX时间戳转日期函数-from-unixtime"><a href="#UNIX时间戳转日期函数-from-unixtime" class="headerlink" title="UNIX时间戳转日期函数: from_unixtime"></a>UNIX时间戳转日期函数: from_unixtime</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">语法: from_unixtime(bigint unixtime[, string format])</span><br><span class="line"> </span><br><span class="line">返回值: string</span><br><span class="line">说明: 转化UNIX时间戳（从1970-01-01 00:00:00 UTC到指定时间的秒数）到当前时区的时间格式</span><br><span class="line">举例：</span><br><span class="line">hive&gt; select from_unixtime(1323308943,’yyyyMMdd’) from dual;</span><br><span class="line">20111208</span><br></pre></td></tr></table></figure>
+<h5 id="获取当前UNIX时间戳函数-unix-timestamp"><a href="#获取当前UNIX时间戳函数-unix-timestamp" class="headerlink" title="获取当前UNIX时间戳函数: unix_timestamp"></a>获取当前UNIX时间戳函数: unix_timestamp</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">语法: unix_timestamp()</span><br><span class="line"> </span><br><span class="line">返回值: bigint</span><br><span class="line">说明: 获得当前时区的UNIX时间戳</span><br><span class="line">举例：</span><br><span class="line">hive&gt; select unix_timestamp() from dual;</span><br><span class="line">1323309615</span><br></pre></td></tr></table></figure>
+<h5 id="日期转UNIX时间戳函数-unix-timestamp"><a href="#日期转UNIX时间戳函数-unix-timestamp" class="headerlink" title="日期转UNIX时间戳函数: unix_timestamp"></a>日期转UNIX时间戳函数: unix_timestamp</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">语法: unix_timestamp(string date)</span><br><span class="line"> </span><br><span class="line">返回值: bigint</span><br><span class="line">说明: 转换格式为“yyyy-MM-dd HH:mm:ss“的日期到UNIX时间戳。如果转化失败，则返回0。</span><br><span class="line">举例：</span><br><span class="line">hive&gt; select unix_timestamp(’2011-12-07 13:01:03′) from dual;</span><br><span class="line">1323234063</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2019/03/20/Hive时间函数/#more" rel="contents">
@@ -1462,8 +1451,8 @@ UNIX时间戳转日期函数: from_unixtime1234567语法: from_unixtime(bigint u
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-03-20T10:45:57+08:00">
-                2019-03-20
+              <time title="更新于" itemprop="dateModified" datetime="2019-03-22T15:27:12+08:00">
+                2019-03-22
               </time>
             
           </span>
@@ -1571,9 +1560,12 @@ UNIX时间戳转日期函数: from_unixtime1234567语法: from_unixtime(bigint u
 
       
         
-          
-          Mysql表center_pub_merchant数据导出为center_pub_merchant.tsv1mysql -h 172.xx.x.175 -P 3307 -uUSER -pPASSWORD -e &quot;SELECT concat(&apos;merchant:&apos;,id), parentId, id, cascade_label AS cascadeLabel, cascade_level AS cascadeLevel, account_id AS accountId, merchant_name AS merchantName,merchant_type AS merchantType,merchant_project AS merchantProject, full_name AS fullName, telephone, email, thumb, in
-          ...
+          <p><strong>Mysql表center_pub_merchant数据导出为center_pub_merchant.tsv</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -h 172.xx.x.175 -P 3307 -uUSER -pPASSWORD -e &quot;SELECT concat(&apos;merchant:&apos;,id), parentId, id, cascade_label AS cascadeLabel, cascade_level AS cascadeLevel, account_id AS accountId, merchant_name AS merchantName,merchant_type AS merchantType,merchant_project AS merchantProject, full_name AS fullName, telephone, email, thumb, industry, user_id AS userId, province,city, county FROM center_pub_merchant&quot; awifi_dc &gt; /opt/gofunTest/center_pub_merchant.tsv</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfs -put center_pub_merchant.tsv /tmp/center_pub_merchant.tsv</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hbase org.apache.hadoop.hbase.mapreduce.ImportTsv -Dimporttsv.columns=HBASE_ROW_KEY,base_data:parentId,base_data:id,base_data:cascadeLabel,base_data:cascadeLevel,base_data:accountId,base_data:merchantName,base_data:merchantType,base_data:merchantProject,base_data:fullName,base_data:telephone,base_data:email,base_data:thumb,base_data:industry,base_data:userId,base_data:province,base_data:city,base_data:county tj_base_merchant /tmp/center_pub_merchant.tsv</span><br></pre></td></tr></table></figure>
+<p><strong>Mysql表center_pub_device数据导出为center_pub_device.tsv</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -h 172.XX.X.175 -P 3307 -uUSER -pPASSWORD -e &quot;SELECT concat(&apos;device:&apos;,d.device_id),d.province,d.city,d.county,e.entity_type as entityType,d.device_id as deviceId,d.project_id as projectId,d.belongto FROM center_pub_device d INNER JOIN center_pub_entity e ON d.OUT_ID = e.ID WHERE d.OUT_TYPE_ID = &apos;00&apos;&quot; awifi_dc &gt; /opt/gofunTest/center_pub_device.tsv</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfs -put center_pub_device.tsv /tmp/center_pub_device.tsv</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hbase org.apache.hadoop.hbase.mapreduce.ImportTsv -Dimporttsv.columns=HBASE_ROW_KEY,base_data:province,base_data:city,base_data:county,base_data:entityType,base_data:deviceId,base_data:projectId,base_data:belongto tj_base_device /tmp/center_pub_device.tsv</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2019/03/08/Mysql数据导出到Hbase/#more" rel="contents">
@@ -1679,8 +1671,8 @@ UNIX时间戳转日期函数: from_unixtime1234567语法: from_unixtime(bigint u
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-03-20T16:01:53+08:00">
-                2019-03-20
+              <time title="更新于" itemprop="dateModified" datetime="2019-03-22T15:26:11+08:00">
+                2019-03-22
               </time>
             
           </span>
@@ -1739,7 +1731,7 @@ UNIX时间戳转日期函数: from_unixtime1234567语法: from_unixtime(bigint u
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  3,243
+                  3,246
                 </span>
               
 
@@ -1777,14 +1769,13 @@ UNIX时间戳转日期函数: from_unixtime1234567语法: from_unixtime(bigint u
 
       
         
-          
-           -->
-HIVE的优化总结Hive是将符合SQL语法的字符串解析生成可以在Hadoop上执行的MapReduce的工具。使用Hive尽量按照分布式计算的一些特点来设计sql，和传统关系型数据库有区别，
-所以需要去掉原有关系型数据库下开发的一些固有思维。
-基本原则：
-1、尽量尽早地过滤数据，减少每个阶段的数据量,对于分区表要加分区，同时只选择需要使用到的字段12345678910111213select ... from Ajoin Bon A.key = B.keywhere A.userid&gt;10     and B.userid&lt;10     and A.dt=&apos;20120417&apos;     and B.dt=&apos;20120417&apos;;
-应该改写为：123456789101112131415161718select ....   from
-          ...
+          <!-- <div style="-webkit-box-shadow: 0 0 14px rgba(202,203,203,1);-moz-box-shadow: 0 0 14px rgba(202,203,204,1);
+background: #fff;padding: 25px;margin-bottom: 100px;"> -->
+<h1 id="HIVE的优化总结"><a href="#HIVE的优化总结" class="headerlink" title="HIVE的优化总结"></a>HIVE的优化总结</h1><p>Hive是将符合SQL语法的字符串解析生成可以在Hadoop上执行的MapReduce的工具。使用Hive尽量按照分布式计算的一些特点来设计sql，和传统关系型数据库有区别，</p>
+<p>所以需要去掉原有关系型数据库下开发的一些固有思维。</p>
+<p>基本原则：</p>
+<p><strong>1、尽量尽早地过滤数据，减少每个阶段的数据量,对于分区表要加分区，同时只选择需要使用到的字段</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">select ... from A </span><br><span class="line"></span><br><span class="line">join B</span><br><span class="line"></span><br><span class="line">on A.key = B.key</span><br><span class="line"></span><br><span class="line">where A.userid&gt;10</span><br><span class="line"></span><br><span class="line">     and B.userid&lt;10</span><br><span class="line"></span><br><span class="line">     and A.dt=&apos;20120417&apos;</span><br><span class="line"></span><br><span class="line">     and B.dt=&apos;20120417&apos;;</span><br></pre></td></tr></table></figure></p>
+<p>应该改写为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">select .... from </span><br><span class="line">  </span><br><span class="line">       (select .... from A</span><br><span class="line"></span><br><span class="line">        where dt=&apos;201200417&apos;</span><br><span class="line"></span><br><span class="line">        and userid&gt;10</span><br><span class="line"></span><br><span class="line">       ) a</span><br><span class="line"></span><br><span class="line">join </span><br><span class="line"></span><br><span class="line">      ( select .... from B</span><br><span class="line"></span><br><span class="line">       where dt=&apos;201200417&apos;</span><br><span class="line"></span><br><span class="line">       and userid &lt; 10   </span><br><span class="line"></span><br><span class="line">      ) b</span><br><span class="line"></span><br><span class="line">on a.key = b.key;</span><br></pre></td></tr></table></figure></p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2019/03/07/Hive优化/#more" rel="contents">
@@ -1890,8 +1881,8 @@ HIVE的优化总结Hive是将符合SQL语法的字符串解析生成可以在Had
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-03-20T11:10:15+08:00">
-                2019-03-20
+              <time title="更新于" itemprop="dateModified" datetime="2019-03-22T15:24:08+08:00">
+                2019-03-22
               </time>
             
           </span>
@@ -1999,28 +1990,31 @@ HIVE的优化总结Hive是将符合SQL语法的字符串解析生成可以在Had
 
       
         
-          
-           -->
-「简书」作为一款「写作软件」在诞生之初就支持了 Markdown，Markdown 是一种「电子邮件」风格的「标记语言」，我们强烈推荐所有写作者学习和掌握该语言。为什么？可以参考:
-
-『为什么作家应该用 Markdown 保存自己的文稿』。
-
-『Markdown写作浅谈』
-
-
-在此，我们总结 Markdown 的优点如下：
-
-纯文本，所以兼容性极强，可以用所有文本编辑器打开。
-
-让你专注于文字而不是排版。
-
-格式转换方便，Markdown 的文本你可以轻松转换为 html、电子书等。
-
-Markdown 的标记语法有极好的可读性。
-
-
-当然，我们既然如此推崇 Markdown ，也必定会教会你使用 Markdown ，这也是本文的目的所在。不过，虽然 Markdown 的语法已经足够简单，但是现有的 Markdown 语法说明更多的是写给 web 从业者看的，对于很多写作者来说，
-          ...
+          <!-- <div style="-webkit-box-shadow: 0 0 14px rgba(202,203,203,1);-moz-box-shadow: 0 0 14px rgba(202,203,204,1);
+background: #fff;padding: 25px;margin-bottom: 100px;"> -->
+<p><a href="http://www.jianshu.com" target="_blank" rel="noopener">「简书」</a>作为一款「写作软件」在诞生之初就支持了 Markdown，Markdown 是一种「电子邮件」风格的「标记语言」，我们强烈推荐所有写作者学习和掌握该语言。为什么？可以参考:</p>
+<ul>
+<li><p><a href="http://www.jianshu.com/p/qqGjLN" target="_blank" rel="noopener">『为什么作家应该用 Markdown 保存自己的文稿』</a>。</p>
+</li>
+<li><p><a href="http://www.jianshu.com/p/PpDNMG" target="_blank" rel="noopener">『Markdown写作浅谈』</a></p>
+</li>
+</ul>
+<p>在此，我们总结 Markdown 的优点如下：</p>
+<ul>
+<li><p>纯文本，所以兼容性极强，可以用所有文本编辑器打开。</p>
+</li>
+<li><p>让你专注于文字而不是排版。</p>
+</li>
+<li><p>格式转换方便，Markdown 的文本你可以轻松转换为 html、电子书等。</p>
+</li>
+<li><p>Markdown 的标记语法有极好的可读性。</p>
+</li>
+</ul>
+<p>当然，我们既然如此推崇 Markdown ，也必定会教会你使用 Markdown ，这也是本文的目的所在。不过，虽然 <a href="http://wowubuntu.com/markdown/" target="_blank" rel="noopener">Markdown 的语法</a>已经足够简单，但是现有的 Markdown 语法说明更多的是写给 web 从业者看的，对于很多写作者来说，学习起来效率很低，现在，我们特地为写作者量身定做本指南，从写作者的实际需求出发，介绍写作者真正实用的常用格式，深入浅出、图文并茂地让您迅速掌握 Markdown 语法。</p>
+<p>为了使您更好地学习，我们建议您登录<a href="http://www.%20jianshu.com" target="_blank" rel="noopener">「简书」</a>，将您的编辑器切换至 Markdown 编辑器，新建一篇空白笔记，然后点击右上角的预览模式：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/259-b7a1aa59aaca63e4.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p>此时，您的界面应当如下图所示，左侧为编辑区域，右侧为预览区域，您在左侧输入 Markdown 语法的文本，右侧会立即帮您呈现最终结果，好了，让我们开始学习吧~</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/259-05f6819ea5aa4fdd.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/11/10/用MackDown语法写hexo博客/#more" rel="contents">

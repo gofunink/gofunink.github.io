@@ -103,7 +103,7 @@
 <meta property="og:site_name" content="gofunink&#39;s blog">
 <meta property="og:description" content="Mysql表center_pub_merchant数据导出为center_pub_merchant.tsv1mysql -h 172.xx.x.175 -P 3307 -uUSER -pPASSWORD -e &amp;quot;SELECT concat(&amp;apos;merchant:&amp;apos;,id), parentId, id, cascade_label AS cascadeLabel, cas">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-20T02:45:57.128Z">
+<meta property="og:updated_time" content="2019-03-22T07:27:12.416Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mysql数据导出到Hbase">
 <meta name="twitter:description" content="Mysql表center_pub_merchant数据导出为center_pub_merchant.tsv1mysql -h 172.xx.x.175 -P 3307 -uUSER -pPASSWORD -e &amp;quot;SELECT concat(&amp;apos;merchant:&amp;apos;,id), parentId, id, cascade_label AS cascadeLabel, cas">
@@ -415,8 +415,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-03-20T10:45:57+08:00">
-                2019-03-20
+              <time title="更新于" itemprop="dateModified" datetime="2019-03-22T15:27:12+08:00">
+                2019-03-22
               </time>
             
           </span>
@@ -528,9 +528,28 @@
       
 
       
-        <div style="-webkit-box-shadow: 0 0 14px rgba(202,203,203,1);-moz-box-shadow: 0 0 14px rgba(202,203,204,1);
-background: #fff;padding: 25px;margin-bottom: 100px;"><br><br><br><strong>Mysql表center_pub_merchant数据导出为center_pub_merchant.tsv</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -h 172.xx.x.175 -P 3307 -uUSER -pPASSWORD -e &quot;SELECT concat(&apos;merchant:&apos;,id), parentId, id, cascade_label AS cascadeLabel, cascade_level AS cascadeLevel, account_id AS accountId, merchant_name AS merchantName,merchant_type AS merchantType,merchant_project AS merchantProject, full_name AS fullName, telephone, email, thumb, industry, user_id AS userId, province,city, county FROM center_pub_merchant&quot; awifi_dc &gt; /opt/gofunTest/center_pub_merchant.tsv</span><br></pre></td></tr></table></figure><br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfs -put center_pub_merchant.tsv /tmp/center_pub_merchant.tsv</span><br></pre></td></tr></table></figure><br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hbase org.apache.hadoop.hbase.mapreduce.ImportTsv -Dimporttsv.columns=HBASE_ROW_KEY,base_data:parentId,base_data:id,base_data:cascadeLabel,base_data:cascadeLevel,base_data:accountId,base_data:merchantName,base_data:merchantType,base_data:merchantProject,base_data:fullName,base_data:telephone,base_data:email,base_data:thumb,base_data:industry,base_data:userId,base_data:province,base_data:city,base_data:county tj_base_merchant /tmp/center_pub_merchant.tsv</span><br></pre></td></tr></table></figure><br><br><strong>Mysql表center_pub_device数据导出为center_pub_device.tsv</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -h 172.XX.X.175 -P 3307 -uUSER -pPASSWORD -e &quot;SELECT concat(&apos;device:&apos;,d.device_id),d.province,d.city,d.county,e.entity_type as entityType,d.device_id as deviceId,d.project_id as projectId,d.belongto FROM center_pub_device d INNER JOIN center_pub_entity e ON d.OUT_ID = e.ID WHERE d.OUT_TYPE_ID = &apos;00&apos;&quot; awifi_dc &gt; /opt/gofunTest/center_pub_device.tsv</span><br></pre></td></tr></table></figure><br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfs -put center_pub_device.tsv /tmp/center_pub_device.tsv</span><br></pre></td></tr></table></figure><br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hbase org.apache.hadoop.hbase.mapreduce.ImportTsv -Dimporttsv.columns=HBASE_ROW_KEY,base_data:province,base_data:city,base_data:county,base_data:entityType,base_data:deviceId,base_data:projectId,base_data:belongto tj_base_device /tmp/center_pub_device.tsv</span><br></pre></td></tr></table></figure><br><br>注意：<br><em> 若Permission denied: user=hbase, access=WRITE, inode=”/user”:hdfs:supergroup:drwxr-xr-x<br>          修改 hadoop fs -chmod 777 /user
-</em> 若报min.user.id。。。的错<br>          找到这个文件/etc/hadoop/conf.cloudera.yarn/container-executor.cfg<br>          chmod 755 container-executor.cfg<br>          将 min.user.id=900改小<br>                    chmod 400 container-executor.cfg<br>* 若报banned.users。。。的错<br>          chmod 755 container-executor.cfg<br>          则将banned.users=hdfs,yarn,mapred,bin中hdfs删掉<br>                    chmod 400 container-executor.cfg<br><br><br><br><br></div>
+        <p><strong>Mysql表center_pub_merchant数据导出为center_pub_merchant.tsv</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -h 172.xx.x.175 -P 3307 -uUSER -pPASSWORD -e &quot;SELECT concat(&apos;merchant:&apos;,id), parentId, id, cascade_label AS cascadeLabel, cascade_level AS cascadeLevel, account_id AS accountId, merchant_name AS merchantName,merchant_type AS merchantType,merchant_project AS merchantProject, full_name AS fullName, telephone, email, thumb, industry, user_id AS userId, province,city, county FROM center_pub_merchant&quot; awifi_dc &gt; /opt/gofunTest/center_pub_merchant.tsv</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfs -put center_pub_merchant.tsv /tmp/center_pub_merchant.tsv</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hbase org.apache.hadoop.hbase.mapreduce.ImportTsv -Dimporttsv.columns=HBASE_ROW_KEY,base_data:parentId,base_data:id,base_data:cascadeLabel,base_data:cascadeLevel,base_data:accountId,base_data:merchantName,base_data:merchantType,base_data:merchantProject,base_data:fullName,base_data:telephone,base_data:email,base_data:thumb,base_data:industry,base_data:userId,base_data:province,base_data:city,base_data:county tj_base_merchant /tmp/center_pub_merchant.tsv</span><br></pre></td></tr></table></figure>
+<p><strong>Mysql表center_pub_device数据导出为center_pub_device.tsv</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -h 172.XX.X.175 -P 3307 -uUSER -pPASSWORD -e &quot;SELECT concat(&apos;device:&apos;,d.device_id),d.province,d.city,d.county,e.entity_type as entityType,d.device_id as deviceId,d.project_id as projectId,d.belongto FROM center_pub_device d INNER JOIN center_pub_entity e ON d.OUT_ID = e.ID WHERE d.OUT_TYPE_ID = &apos;00&apos;&quot; awifi_dc &gt; /opt/gofunTest/center_pub_device.tsv</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfs -put center_pub_device.tsv /tmp/center_pub_device.tsv</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hbase org.apache.hadoop.hbase.mapreduce.ImportTsv -Dimporttsv.columns=HBASE_ROW_KEY,base_data:province,base_data:city,base_data:county,base_data:entityType,base_data:deviceId,base_data:projectId,base_data:belongto tj_base_device /tmp/center_pub_device.tsv</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>注意：</p>
+<ul>
+<li>若Permission denied: user=hbase, access=WRITE, inode=”/user”:hdfs:supergroup:drwxr-xr-x<pre><code>修改 hadoop fs -chmod 777 /user
+</code></pre></li>
+<li>若报min.user.id。。。的错<pre><code>找到这个文件/etc/hadoop/conf.cloudera.yarn/container-executor.cfg
+chmod 755 container-executor.cfg
+将 min.user.id=900改小
+          chmod 400 container-executor.cfg
+</code></pre></li>
+<li>若报banned.users。。。的错<pre><code>chmod 755 container-executor.cfg
+则将banned.users=hdfs,yarn,mapred,bin中hdfs删掉
+          chmod 400 container-executor.cfg
+</code></pre></li>
+</ul>
+
       
     </div>
     
