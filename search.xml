@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Lateral View和Explode用法简介]]></title>
+    <url>%2F2019%2F04%2F02%2FLateral%20View%E5%92%8CExplode%E7%94%A8%E6%B3%95%E7%AE%80%E4%BB%8B%2F</url>
+    <content type="text"><![CDATA[一、Explode用法 hive wiki对于expolde的解释如下： explode() takes in an array (or a map) as an input and outputs the elements of the array (map) as separate rows. UDTFs can be used in the SELECT expression list and as a part of LATERAL VIEW. explode（）接受一个数组（或一个map）作为输入，并将数组元素（map）作为单独的行输出。 UDTF可以在SELECT表达式列表中使用，也可以作为LATERAL VIEW的一部分使用。 使用如下图： 将Map作为输入端 将ArrayList作为输入端: 二、Lateral View用法 lateral view的意义是配合explode（或者其他的UDTF），一个语句生成把单行数据拆解成多行后的数据结果集。 首先准备一张表test，test表的数据结构如下 利用 lateral view explode 结合map的使用方式和结果如下：12345678select t.cola ,t.indexa ,tt.class_id ,tt.scorefrom test tLATERAL VIEW explode(map(&apos;1&apos;,100,&apos;2&apos;,200)) tt as class_id ,score; 输出结果: 结果注解： test本身只有4条记录， explode(map(‘1’,100,’2’,200)) 本身只有2条记录， 上述sql的原理实质上是对2个结果集做了笛卡尔积。 实现形式如下：1234567891011121314151617select t1.column1 ,t1.column2 ,… ,t2.column1 ,t2.column2 from tablea t1 lateral view explode(…) t2 as column1,column2; 利用 lateral view explode 结合array的使用方式和结果如下：12345678910111213select t.cola ,t.indexa ,tt.class_idfrom test tlateral view explode(array(1,100)) tt as class_id; 输出如下：]]></content>
+      <categories>
+        <category>Hive</category>
+      </categories>
+      <tags>
+        <tag>Hive函数</tag>
+        <tag>Explode</tag>
+        <tag>Lateral View</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Linux定时任务使用]]></title>
     <url>%2F2019%2F03%2F20%2FLinux%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E4%BD%BF%E7%94%A8%2F</url>
     <content type="text"><![CDATA[1234567.---------------- minute (0 - 59) | .------------- hour (0 - 23)| | .---------- day of month (1 - 31)| | | .------- month (1 - 12) OR jan,feb,mar,apr ... | | | | .---- day of week (0 - 6) (Sunday=0 or 7) OR sun,mon,tue,wed,thu,fri,sat | | | | |* * * * * command to be executed 1234567minute：代表一小时内的第几分,范围 0-59。hour：代表一天中的第几小时,范围 0-23。mday：代表一个月中的第几天,范围 1-31。month：代表一年中第几个月,范围 1-12。wday：代表星期几,范围 0-7 (0及7都是星期天)。who：要使用什么身份执行该指令,当您使用 crontab -e 时,不必加此字段。command：所要执行的指令。 一般格式1* * * * * who(用户) command(命令) 下面介绍创建定时任务的2种方法： 方法一： 123crontab -e 其中 root代表用户 可不写* * * * * root /xx/xx/xx/xxx.sh 方法二： 1234567在/etc/cron.d/目录下创建 testCrontab 的文件touch testCrontab文件中编辑如下,其中 root代表用户 是要写的* * * * * root /xx/xx/xx/xxx.sh 下面列举一些例子12345678910111213141516171819202122232425262728293031323334353637383940414243# 每天早上6点 0 6 * * * echo &quot;Good morning.&quot; &gt;&gt; /tmp/test.txt //注意单纯echo,从屏幕上看不到任何输出,因为cron把任何输出都email到root的信箱了。# 每两个小时 0 */2 * * * echo &quot;Have a break now.&quot; &gt;&gt; /tmp/test.txt # 晚上11点到早上8点之间每两个小时和早上八点 0 23-7/2,8 * * * echo &quot;Have a good dream&quot; &gt;&gt; /tmp/test.txt# 每个月的4号和每个礼拜的礼拜一到礼拜三的早上11点 0 11 4 * 1-3 command line# 1月1日早上4点 0 4 1 1 * command line SHELL=/bin/bash PATH=/sbin:/bin:/usr/sbin:/usr/bin MAILTO=root //如果出现错误,或者有数据输出,数据作为邮件发给这个帐号 HOME=/ # 每小时（第一分钟）执行/etc/cron.hourly内的脚本01 * * * * root run-parts /etc/cron.hourly# 每天（凌晨4：02）执行/etc/cron.daily内的脚本02 4 * * * root run-parts /etc/cron.daily # 每星期（周日凌晨4：22）执行/etc/cron.weekly内的脚本22 4 * * 0 root run-parts /etc/cron.weekly # 每月（1号凌晨4：42）去执行/etc/cron.monthly内的脚本 42 4 1 * * root run-parts /etc/cron.monthly # 注意: &quot;run-parts&quot;这个参数了,如果去掉这个参数的话,后面就可以写要运行的某个脚本名,而不是文件夹名。 # 每天的下午4点、5点、6点的5 min、15 min、25 min、35 min、45 min、55 min时执行命令。 5,15,25,35,45,55 16,17,18 * * * command line# 每周一,三,五的下午3：00系统进入维护状态,重新启动系统。00 15 * * 1,3,5 shutdown -r +5# 每小时的10分,40分执行用户目录下的innd/bbslin这个指令： 10,40 * * * * innd/bbslink # 每小时的1分执行用户目录下的bin/account这个指令： 1 * * * * bin/account# 每天早晨三点二十分执行用户目录下如下所示的两个指令（每个指令以;分隔）： 20 3 * * * （/bin/rm -f expire.ls logins.bad;bin/expire$#@62;expire.1st）]]></content>

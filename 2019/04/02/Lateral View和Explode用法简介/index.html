@@ -82,7 +82,7 @@
 
 
 
-  <meta name="keywords" content="gofun, 郜方,gofunink,郜,gaofang,gao">
+  <meta name="keywords" content="Hive函数,Explode,Lateral View,">
 
 
 
@@ -95,16 +95,24 @@
 
 
 
-<meta name="description" content="才高粑斗，学负五车">
-<meta property="og:type" content="website">
-<meta property="og:title" content="gofunink&#39;s blog">
-<meta property="og:url" content="https://www.gofunink.com/tags/SparkRDD/index.html">
+<meta name="description" content="一、Explode用法  hive wiki对于expolde的解释如下：   explode() takes in an array (or a map) as an input and outputs the elements of the array (map) as separate rows. UDTFs can be used in the SELECT expression list">
+<meta name="keywords" content="Hive函数,Explode,Lateral View">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Lateral View和Explode用法简介">
+<meta property="og:url" content="https://www.gofunink.com/2019/04/02/Lateral View和Explode用法简介/index.html">
 <meta property="og:site_name" content="gofunink&#39;s blog">
-<meta property="og:description" content="才高粑斗，学负五车">
+<meta property="og:description" content="一、Explode用法  hive wiki对于expolde的解释如下：   explode() takes in an array (or a map) as an input and outputs the elements of the array (map) as separate rows. UDTFs can be used in the SELECT expression list">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8901440-69f52c3041390f40.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8901440-038b8283ebd0eed6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8901440-1f6bca5e063af010.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8901440-d55985e7a712923f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8901440-ed4067a7807e05ae.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2019-04-02T08:40:34.298Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="gofunink&#39;s blog">
-<meta name="twitter:description" content="才高粑斗，学负五车">
+<meta name="twitter:title" content="Lateral View和Explode用法简介">
+<meta name="twitter:description" content="一、Explode用法  hive wiki对于expolde的解释如下：   explode() takes in an array (or a map) as an input and outputs the elements of the array (map) as separate rows. UDTFs can be used in the SELECT expression list">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/8901440-69f52c3041390f40.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
 
@@ -163,13 +171,13 @@
 
 
 
-  <link rel="canonical" href="https://www.gofunink.com/tags/SparkRDD/">
+  <link rel="canonical" href="https://www.gofunink.com/2019/04/02/Lateral View和Explode用法简介/">
 
 
 
 
 
-  <title>标签: SparkRDD | gofunink's blog</title>
+  <title>Lateral View和Explode用法简介 | gofunink's blog</title>
   
 
 
@@ -209,7 +217,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
@@ -354,52 +362,307 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block tag">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>SparkRDD<small>标签</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.gofunink.com/2019/04/02/Lateral View和Explode用法简介/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="gofunink">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/shinubi.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="gofunink's blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2019/03/20/SparkRDD转DataFrame的两种方式/" itemprop="url">
-              
-                <span itemprop="name">SparkRDD转DataFrame的两种方式</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">Lateral View和Explode用法简介</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-03-20T11:26:00+08:00" content="2019-03-20">
-          03-20
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-02T16:40:00+08:00">
+                2019-04-02
+              </time>
+            
 
-    </header>
-  </article>
+            
+              <span class="post-meta-divider">|</span>
+            
 
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-04-02T16:40:34+08:00">
+                2019-04-02
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hive/" itemprop="url" rel="index">
+                    <span itemprop="name">Hive</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/04/02/Lateral View和Explode用法简介/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/04/02/Lateral View和Explode用法简介/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  381
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  2
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>一、Explode用法</p>
+<ul>
+<li>hive wiki对于expolde的解释如下：</li>
+</ul>
+<blockquote>
+<p>explode() takes in an array (or a map) as an input and outputs the elements of the array (map) as separate rows. UDTFs can be used in the SELECT expression list and as a part of LATERAL VIEW.</p>
+</blockquote>
+<blockquote>
+<p>explode（）接受一个数组（或一个map）作为输入，并将数组元素（map）作为单独的行输出。 UDTF可以在SELECT表达式列表中使用，也可以作为LATERAL VIEW的一部分使用。</p>
+</blockquote>
+<p>使用如下图：</p>
+<ul>
+<li>将Map作为输入端</li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/8901440-69f52c3041390f40.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="map作为输入端"></p>
+<ul>
+<li>将ArrayList作为输入端:</li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/8901440-038b8283ebd0eed6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="array作为输入端"></p>
+<a id="more"></a>
+<p>二、Lateral View用法</p>
+<blockquote>
+<p>lateral view的意义是配合explode（或者其他的UDTF），一个语句生成把单行数据拆解成多行后的数据结果集。</p>
+</blockquote>
+<p>首先准备一张表test，test表的数据结构如下</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/8901440-1f6bca5e063af010.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="test表结构"></p>
+<h5 id="利用-lateral-view-explode-结合map的使用方式和结果如下："><a href="#利用-lateral-view-explode-结合map的使用方式和结果如下：" class="headerlink" title="利用 lateral view explode 结合map的使用方式和结果如下："></a>利用 lateral view explode 结合map的使用方式和结果如下：</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">select</span><br><span class="line">    t.cola</span><br><span class="line">    ,t.indexa</span><br><span class="line">    ,tt.class_id</span><br><span class="line">    ,tt.score</span><br><span class="line">from test t</span><br><span class="line">LATERAL VIEW explode(map(&apos;1&apos;,100,&apos;2&apos;,200)) tt as class_id ,score</span><br><span class="line">;</span><br></pre></td></tr></table></figure>
+<p>输出结果:</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/8901440-d55985e7a712923f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="结果"></p>
+<p>结果注解：</p>
+<p> test本身只有4条记录，  explode(map(‘1’,100,’2’,200)) 本身只有2条记录， </p>
+<p>上述sql的原理实质上是对2个结果集做了笛卡尔积。</p>
+<p>实现形式如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">select </span><br><span class="line"></span><br><span class="line">    t1.column1</span><br><span class="line"></span><br><span class="line">    ,t1.column2</span><br><span class="line"></span><br><span class="line">    ,…</span><br><span class="line"></span><br><span class="line">    ,t2.column1</span><br><span class="line"></span><br><span class="line">    ,t2.column2 </span><br><span class="line"></span><br><span class="line">from tablea t1 </span><br><span class="line"></span><br><span class="line">lateral view explode(…) t2 as column1,column2</span><br><span class="line"></span><br><span class="line">;</span><br></pre></td></tr></table></figure></p>
+<h5 id="利用-lateral-view-explode-结合array的使用方式和结果如下："><a href="#利用-lateral-view-explode-结合array的使用方式和结果如下：" class="headerlink" title="利用 lateral view explode 结合array的使用方式和结果如下："></a>利用 lateral view explode 结合array的使用方式和结果如下：</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">select</span><br><span class="line"></span><br><span class="line">    t.cola</span><br><span class="line"></span><br><span class="line">    ,t.indexa</span><br><span class="line"></span><br><span class="line">    ,tt.class_id</span><br><span class="line"></span><br><span class="line">from test t</span><br><span class="line"></span><br><span class="line">lateral view explode(array(1,100)) tt as class_id</span><br><span class="line"></span><br><span class="line">;</span><br></pre></td></tr></table></figure>
+<p>输出如下：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/8901440-ed4067a7807e05ae.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="ArrayList端结果"></p>
 
       
     </div>
+    
+    
+    
+	
+	
+    
 
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/weixin_pay.png" alt="gofunink 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="gofunink 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <div>
+  	
+    	<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+  	
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Hive函数/" rel="tag"><i class="fa fa-tag"></i> Hive函数</a>
+          
+            <a href="/tags/Explode/" rel="tag"><i class="fa fa-tag"></i> Explode</a>
+          
+            <a href="/tags/Lateral-View/" rel="tag"><i class="fa fa-tag"></i> Lateral View</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/20/Linux定时任务使用/" rel="next" title="Linux定时任务使用">
+                <i class="fa fa-chevron-left"></i> Linux定时任务使用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -407,6 +670,15 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      <div id="SOHUCS"></div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -427,8 +699,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -551,6 +832,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#利用-lateral-view-explode-结合map的使用方式和结果如下："><span class="nav-number">1.</span> <span class="nav-text">利用 lateral view explode 结合map的使用方式和结果如下：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#利用-lateral-view-explode-结合array的使用方式和结果如下："><span class="nav-number">2.</span> <span class="nav-text">利用 lateral view explode 结合array的使用方式和结果如下：</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -731,6 +1028,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
 
   
 

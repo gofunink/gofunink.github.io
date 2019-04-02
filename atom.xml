@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.gofunink.com/"/>
-  <updated>2019-03-22T07:22:17.180Z</updated>
+  <updated>2019-04-02T08:40:34.298Z</updated>
   <id>https://www.gofunink.com/</id>
   
   <author>
@@ -15,6 +15,50 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Lateral View和Explode用法简介</title>
+    <link href="https://www.gofunink.com/2019/04/02/Lateral%20View%E5%92%8CExplode%E7%94%A8%E6%B3%95%E7%AE%80%E4%BB%8B/"/>
+    <id>https://www.gofunink.com/2019/04/02/Lateral View和Explode用法简介/</id>
+    <published>2019-04-02T08:40:00.000Z</published>
+    <updated>2019-04-02T08:40:34.298Z</updated>
+    
+    <content type="html"><![CDATA[<p>一、Explode用法</p><ul><li>hive wiki对于expolde的解释如下：</li></ul><blockquote><p>explode() takes in an array (or a map) as an input and outputs the elements of the array (map) as separate rows. UDTFs can be used in the SELECT expression list and as a part of LATERAL VIEW.</p></blockquote><blockquote><p>explode（）接受一个数组（或一个map）作为输入，并将数组元素（map）作为单独的行输出。 UDTF可以在SELECT表达式列表中使用，也可以作为LATERAL VIEW的一部分使用。</p></blockquote><p>使用如下图：</p><ul><li>将Map作为输入端</li></ul><p><img src="https://upload-images.jianshu.io/upload_images/8901440-69f52c3041390f40.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="map作为输入端"></p><ul><li>将ArrayList作为输入端:</li></ul><p><img src="https://upload-images.jianshu.io/upload_images/8901440-038b8283ebd0eed6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="array作为输入端"></p><a id="more"></a><p>二、Lateral View用法</p><blockquote><p>lateral view的意义是配合explode（或者其他的UDTF），一个语句生成把单行数据拆解成多行后的数据结果集。</p></blockquote><p>首先准备一张表test，test表的数据结构如下</p><p><img src="https://upload-images.jianshu.io/upload_images/8901440-1f6bca5e063af010.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="test表结构"></p><h5 id="利用-lateral-view-explode-结合map的使用方式和结果如下："><a href="#利用-lateral-view-explode-结合map的使用方式和结果如下：" class="headerlink" title="利用 lateral view explode 结合map的使用方式和结果如下："></a>利用 lateral view explode 结合map的使用方式和结果如下：</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">select</span><br><span class="line">    t.cola</span><br><span class="line">    ,t.indexa</span><br><span class="line">    ,tt.class_id</span><br><span class="line">    ,tt.score</span><br><span class="line">from test t</span><br><span class="line">LATERAL VIEW explode(map(&apos;1&apos;,100,&apos;2&apos;,200)) tt as class_id ,score</span><br><span class="line">;</span><br></pre></td></tr></table></figure><p>输出结果:</p><p><img src="https://upload-images.jianshu.io/upload_images/8901440-d55985e7a712923f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="结果"></p><p>结果注解：</p><p> test本身只有4条记录，  explode(map(‘1’,100,’2’,200)) 本身只有2条记录， </p><p>上述sql的原理实质上是对2个结果集做了笛卡尔积。</p><p>实现形式如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">select </span><br><span class="line"></span><br><span class="line">    t1.column1</span><br><span class="line"></span><br><span class="line">    ,t1.column2</span><br><span class="line"></span><br><span class="line">    ,…</span><br><span class="line"></span><br><span class="line">    ,t2.column1</span><br><span class="line"></span><br><span class="line">    ,t2.column2 </span><br><span class="line"></span><br><span class="line">from tablea t1 </span><br><span class="line"></span><br><span class="line">lateral view explode(…) t2 as column1,column2</span><br><span class="line"></span><br><span class="line">;</span><br></pre></td></tr></table></figure></p><h5 id="利用-lateral-view-explode-结合array的使用方式和结果如下："><a href="#利用-lateral-view-explode-结合array的使用方式和结果如下：" class="headerlink" title="利用 lateral view explode 结合array的使用方式和结果如下："></a>利用 lateral view explode 结合array的使用方式和结果如下：</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">select</span><br><span class="line"></span><br><span class="line">    t.cola</span><br><span class="line"></span><br><span class="line">    ,t.indexa</span><br><span class="line"></span><br><span class="line">    ,tt.class_id</span><br><span class="line"></span><br><span class="line">from test t</span><br><span class="line"></span><br><span class="line">lateral view explode(array(1,100)) tt as class_id</span><br><span class="line"></span><br><span class="line">;</span><br></pre></td></tr></table></figure><p>输出如下：</p><p><img src="https://upload-images.jianshu.io/upload_images/8901440-ed4067a7807e05ae.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="ArrayList端结果"></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;一、Explode用法&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;hive wiki对于expolde的解释如下：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;explode() takes in an array (or a map) as an input and outputs the elements of the array (map) as separate rows. UDTFs can be used in the SELECT expression list and as a part of LATERAL VIEW.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;explode（）接受一个数组（或一个map）作为输入，并将数组元素（map）作为单独的行输出。 UDTF可以在SELECT表达式列表中使用，也可以作为LATERAL VIEW的一部分使用。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;使用如下图：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;将Map作为输入端&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/8901440-69f52c3041390f40.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;map作为输入端&quot;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;将ArrayList作为输入端:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/8901440-038b8283ebd0eed6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;array作为输入端&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Hive" scheme="https://www.gofunink.com/categories/Hive/"/>
+    
+    
+      <category term="Hive函数" scheme="https://www.gofunink.com/tags/Hive%E5%87%BD%E6%95%B0/"/>
+    
+      <category term="Explode" scheme="https://www.gofunink.com/tags/Explode/"/>
+    
+      <category term="Lateral View" scheme="https://www.gofunink.com/tags/Lateral-View/"/>
+    
+  </entry>
   
   <entry>
     <title>Linux定时任务使用</title>
