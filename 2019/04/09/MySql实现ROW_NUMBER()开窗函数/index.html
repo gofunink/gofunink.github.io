@@ -82,12 +82,10 @@
 
 
 
-  <meta name="keywords" content="gofun, 郜方,gofunink,郜,gaofang,gao">
+  <meta name="keywords" content="Hive,Mysql,">
 
 
 
-
-  
 
 
   <link rel="alternate" href="/atom.xml" title="gofunink's blog" type="application/atom+xml">
@@ -97,17 +95,18 @@
 
 
 
-<meta name="description" content="www.gofunink.top">
-<meta property="og:type" content="website">
-<meta property="og:title" content="gofunink&#39;s blog">
-<meta property="og:url" content="https://www.gofunink.com/CNAME.html">
+<meta name="description" content="本文咱们使用mysql实现开窗函数row_number() over (partition by xxx,xxx order by xxx)，废话不多说，直接开干 准备数据 1select * from test_biz_policy_policy;    platform_id（平台id） publish_time（政策发布时间） policy_name（政策名称）     2 2019-04-">
+<meta name="keywords" content="Hive,Mysql">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySql实现ROW_NUMBER()开窗函数">
+<meta property="og:url" content="https://www.gofunink.com/2019/04/09/MySql实现ROW_NUMBER()开窗函数/index.html">
 <meta property="og:site_name" content="gofunink&#39;s blog">
-<meta property="og:description" content="www.gofunink.top">
+<meta property="og:description" content="本文咱们使用mysql实现开窗函数row_number() over (partition by xxx,xxx order by xxx)，废话不多说，直接开干 准备数据 1select * from test_biz_policy_policy;    platform_id（平台id） publish_time（政策发布时间） policy_name（政策名称）     2 2019-04-">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-07T11:12:12.000Z">
+<meta property="og:updated_time" content="2019-04-09T06:28:39.922Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="gofunink&#39;s blog">
-<meta name="twitter:description" content="www.gofunink.top">
+<meta name="twitter:title" content="MySql实现ROW_NUMBER()开窗函数">
+<meta name="twitter:description" content="本文咱们使用mysql实现开窗函数row_number() over (partition by xxx,xxx order by xxx)，废话不多说，直接开干 准备数据 1select * from test_biz_policy_policy;    platform_id（平台id） publish_time（政策发布时间） policy_name（政策名称）     2 2019-04-">
 
 
 
@@ -166,13 +165,13 @@
 
 
 
-  <link rel="canonical" href="https://www.gofunink.com/CNAME.html">
+  <link rel="canonical" href="https://www.gofunink.com/2019/04/09/MySql实现ROW_NUMBER()开窗函数/">
 
 
 
 
 
-  <title> | gofunink's blog</title>
+  <title>MySql实现ROW_NUMBER()开窗函数 | gofunink's blog</title>
   
 
 
@@ -359,34 +358,479 @@
 
   <div id="posts" class="posts-expand">
     
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.gofunink.com/2019/04/09/MySql实现ROW_NUMBER()开窗函数/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="gofunink">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/shinubi.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="gofunink's blog">
+    </span>
+
     
-    
-    <div class="post-block page">
       <header class="post-header">
 
-	<h1 class="post-title" itemprop="name headline"></h1>
-
-
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
         
-          <p><a href="http://www.gofunink.top" target="_blank" rel="noopener">www.gofunink.top</a></p>
-
+          <h1 class="post-title" itemprop="name headline">MySql实现ROW_NUMBER()开窗函数</h1>
         
-      </div>
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-09T14:27:00+08:00">
+                2019-04-09
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-04-09T14:28:39+08:00">
+                2019-04-09
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Mysql/" itemprop="url" rel="index">
+                    <span itemprop="name">Mysql</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Mysql/Hive/" itemprop="url" rel="index">
+                    <span itemprop="name">Hive</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/04/09/MySql实现ROW_NUMBER()开窗函数/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/04/09/MySql实现ROW_NUMBER()开窗函数/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  441
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  2
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
       
+
+      
+        <p>本文咱们使用mysql实现开窗函数row_number() over (partition by xxx,xxx order by xxx)，废话不多说，直接开干</p>
+<h5 id="准备数据"><a href="#准备数据" class="headerlink" title="准备数据"></a>准备数据</h5> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from test_biz_policy_policy;</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>platform_id（平台id）</th>
+<th>publish_time（政策发布时间）</th>
+<th>policy_name（政策名称）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2</td>
+<td>2019-04-01 15:11:06</td>
+<td>test0</td>
+</tr>
+<tr>
+<td>2</td>
+<td>2019-04-01 19:11:06</td>
+<td>test9</td>
+</tr>
+<tr>
+<td>2</td>
+<td>2019-04-01 19:11:06</td>
+<td>test8</td>
+</tr>
+<tr>
+<td>2</td>
+<td>2019-04-01 18:11:06</td>
+<td>test7</td>
+</tr>
+<tr>
+<td>2</td>
+<td>2019-04-01 15:11:06</td>
+<td>test1</td>
+</tr>
+<tr>
+<td>2</td>
+<td>2019-04-01 15:11:06</td>
+<td>test2</td>
+</tr>
+<tr>
+<td>2</td>
+<td>2019-04-01 16:11:06</td>
+<td>test3</td>
+</tr>
+<tr>
+<td>2</td>
+<td>2019-04-01 16:11:06</td>
+<td>test4</td>
+</tr>
+<tr>
+<td>2</td>
+<td>2019-04-01 16:11:06</td>
+<td>test5</td>
+</tr>
+<tr>
+<td>2</td>
+<td>2019-04-01 17:11:06</td>
+<td>test6</td>
+</tr>
+<tr>
+<td>8</td>
+<td>2019-04-02 19:17:31</td>
+<td>fengyu</td>
+</tr>
+<tr>
+<td>8</td>
+<td>2019-04-02 19:17:31</td>
+<td>新建政策1111111</td>
+</tr>
+<tr>
+<td>8</td>
+<td>2019-04-02 19:17:31</td>
+<td>1218测试</td>
+</tr>
+<tr>
+<td>8</td>
+<td>2019-04-02 19:17:31</td>
+<td>xxx</td>
+</tr>
+<tr>
+<td>8</td>
+<td>2019-04-02 19:17:31</td>
+<td>ccc</td>
+</tr>
+<tr>
+<td>8</td>
+<td>2019-04-02 19:17:31</td>
+<td>测试114</td>
+</tr>
+<tr>
+<td>8</td>
+<td>2019-04-02 19:17:31</td>
+<td>测试mmm</td>
+</tr>
+<tr>
+<td>8</td>
+<td>2019-04-02 19:17:31</td>
+<td>k k k k k k k</td>
+</tr>
+<tr>
+<td>8</td>
+<td>2019-04-02 19:17:31</td>
+<td>k k k k k k k明明</td>
+</tr>
+<tr>
+<td>8</td>
+<td>2019-04-02 19:17:31</td>
+<td>ceshi111</td>
+</tr>
+</tbody>
+</table>
+<h5 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h5><p>简而言之，就是以「平台id」,「政策发布时间」分组，根据「政策名称」进行排序，取政策前三名。<br><a id="more"></a></p>
+<h5 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">SELECT</span><br><span class="line">	t.platform_id,</span><br><span class="line">	t.publish_time,</span><br><span class="line">	t.policy_name,</span><br><span class="line">	t.rank_no </span><br><span class="line">FROM</span><br><span class="line">	(</span><br><span class="line">	SELECT</span><br><span class="line">		a.platform_id,</span><br><span class="line">		a.publish_time,</span><br><span class="line">		a.policy_name,</span><br><span class="line">	IF</span><br><span class="line">		(</span><br><span class="line">			@str1 = a.platform_id </span><br><span class="line">			AND @str2 = a.publish_time,</span><br><span class="line">			@rank := @rank + 1,</span><br><span class="line">			@rank := 1 </span><br><span class="line">		) AS rank_no,</span><br><span class="line">		@str1 := a.platform_id,</span><br><span class="line">		@str2 := a.publish_time </span><br><span class="line">	FROM</span><br><span class="line">		(</span><br><span class="line">		SELECT</span><br><span class="line">			platform_id,</span><br><span class="line">			publish_time,</span><br><span class="line">			policy_name </span><br><span class="line">		FROM</span><br><span class="line">			test_biz_policy_policy </span><br><span class="line">		ORDER BY</span><br><span class="line">			platform_id,</span><br><span class="line">			publish_time,</span><br><span class="line">			policy_name ASC </span><br><span class="line">		) a,</span><br><span class="line">		(</span><br><span class="line">		SELECT</span><br><span class="line">			@str1 := 0,</span><br><span class="line">			@str2 := NULL,</span><br><span class="line">			@rank := 0 </span><br><span class="line">		) tmp </span><br><span class="line">	) t </span><br><span class="line">WHERE</span><br><span class="line">	t.rank_no &lt;= 5</span><br></pre></td></tr></table></figure>
+<h5 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h5><table>
+<thead>
+<tr>
+<th>platform_id（平台id）</th>
+<th>publish_time（政策发布时间）</th>
+<th>policy_name（政策名称）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2</td>
+<td>2019-04-01 15:11:06</td>
+<td>test0</td>
+</tr>
+<tr>
+<td>2</td>
+<td>2019-04-01 15:11:06</td>
+<td>test1</td>
+</tr>
+<tr>
+<td>2</td>
+<td>2019-04-01 15:11:06</td>
+<td>test2</td>
+</tr>
+<tr>
+<td>2</td>
+<td>2019-04-01 16:11:06</td>
+<td>test3</td>
+</tr>
+<tr>
+<td>2</td>
+<td>2019-04-01 16:11:06</td>
+<td>test4</td>
+</tr>
+<tr>
+<td>2</td>
+<td>2019-04-01 16:11:06</td>
+<td>test5</td>
+</tr>
+<tr>
+<td>2</td>
+<td>2019-04-01 17:11:06</td>
+<td>test6</td>
+</tr>
+<tr>
+<td>2</td>
+<td>2019-04-01 18:11:06</td>
+<td>test7</td>
+</tr>
+<tr>
+<td>2</td>
+<td>2019-04-01 19:11:06</td>
+<td>test8</td>
+</tr>
+<tr>
+<td>2</td>
+<td>2019-04-01 19:11:06</td>
+<td>test9</td>
+</tr>
+<tr>
+<td>8</td>
+<td>2019-04-02 19:17:31</td>
+<td>1218测试</td>
+</tr>
+<tr>
+<td>8</td>
+<td>2019-04-02 19:17:31</td>
+<td>ccc</td>
+</tr>
+<tr>
+<td>8</td>
+<td>2019-04-02 19:17:31</td>
+<td>ceshi111</td>
+</tr>
+<tr>
+<td>8</td>
+<td>2019-04-02 19:17:31</td>
+<td>fengyu</td>
+</tr>
+<tr>
+<td>8</td>
+<td>2019-04-02 19:17:31</td>
+<td>k k k k k k k</td>
+</tr>
+</tbody>
+</table>
+<h5 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h5><p>从上面的结果看来，需求已实现。</p>
+
       
     </div>
     
     
     
+	
+	
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/weixin_pay.png" alt="gofunink 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="gofunink 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <div>
+  	
+    	<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+  	
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Hive/" rel="tag"><i class="fa fa-tag"></i> Hive</a>
+          
+            <a href="/tags/Mysql/" rel="tag"><i class="fa fa-tag"></i> Mysql</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/02/Lateral View和Explode用法简介/" rel="next" title="Lateral View和Explode用法简介">
+                <i class="fa fa-chevron-left"></i> Lateral View和Explode用法简介
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
 
@@ -424,8 +868,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -548,6 +1001,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#准备数据"><span class="nav-number">1.</span> <span class="nav-text">准备数据</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#需求"><span class="nav-number">2.</span> <span class="nav-text">需求</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#代码"><span class="nav-number">3.</span> <span class="nav-text">代码</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#结果"><span class="nav-number">4.</span> <span class="nav-text">结果</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
